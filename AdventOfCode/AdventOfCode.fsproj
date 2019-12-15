@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="IntCodeComputer.fs" />
+    <Compile Include="Year2019Day1.fs" />
+    <Compile Include="Year2019Day2.fs" />
+    <Compile Include="Year2019Day3.fs" />
+    <Compile Include="Year2019Day4.fs" />
+    <Compile Include="Year2019Day5.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+
+</Project>
