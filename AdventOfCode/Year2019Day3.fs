@@ -8,6 +8,7 @@ let testInputs = ["R8,U5,L5,D3"]
 type Direction = L | U | R | D
 type Move = { Length:int; Direction:Direction}
 type Coordinate = {X:int; Y:int}
+type WireCoordinate = {Coordinate:Coordinate; Delay:int64}
 
 let parseDir = 
   function
@@ -25,42 +26,67 @@ let parseMove (input:string) =
 
 let parse (text:string) = text.Split(",") |> Seq.map parseMove
 
-let drawWireSegment (coordinates:List<Coordinate>, move:Move) = 
-  let rec addMove (coordinates:List<Coordinate>, position:Coordinate, move:Move) =
+let drawWireSegment (coordinates:List<WireCoordinate>, move:Move) = 
+  let rec addMove (coordinates:List<WireCoordinate>, position:WireCoordinate, move:Move) =
+    let newDelay =  position.Delay + int64 1
     match move with
     | m when m.Length <= 0 -> coordinates
     | m -> 
       match m.Direction with 
       | L -> 
-        let newCoordinate = { X = position.X - 1; Y = position.Y }
+        let newCoordinate = {Coordinate={ X = position.Coordinate.X - 1; Y = position.Coordinate.Y;}; Delay=newDelay}
         addMove (newCoordinate::coordinates, newCoordinate, {Length = m.Length - 1; Direction = m.Direction})
       | R -> 
-        let newCoordinate = { X = position.X + 1; Y = position.Y }
+        let newCoordinate = {Coordinate={ X = position.Coordinate.X + 1; Y = position.Coordinate.Y;}; Delay=newDelay}
         addMove (newCoordinate::coordinates, newCoordinate, {Length = m.Length - 1; Direction = m.Direction})
       | U -> 
-        let newCoordinate = { X = position.X; Y = position.Y + 1 }  
+        let newCoordinate = {Coordinate={ X = position.Coordinate.X; Y = position.Coordinate.Y + 1; }; Delay=newDelay}
         addMove (newCoordinate::coordinates, newCoordinate, {Length = m.Length - 1; Direction = m.Direction})
       | D -> 
-        let newCoordinate = { X = position.X; Y = position.Y - 1 }
+        let newCoordinate = {Coordinate={ X = position.Coordinate.X; Y = position.Coordinate.Y - 1;}; Delay=newDelay}
         addMove (newCoordinate::coordinates, newCoordinate, {Length = m.Length - 1; Direction = m.Direction})
   addMove (coordinates, coordinates.Head, move)
 
 let drawWire (moves:seq<Move>) = 
-  let mutable coordinates = [ {X=0; Y=0} ]
+  let mutable coordinates = [ {Coordinate={X=0; Y=0}; Delay= int64 0} ]
   for move in moves do
     coordinates <- drawWireSegment(coordinates,move)
   coordinates
 
-let ManhattanDistance coordinate = abs coordinate.X + abs coordinate.Y
-
-let SolveDay3Part1 = 
+let Wires = 
   inputs 
   |> Seq.map parse 
   |> Seq.map drawWire
-  |> Seq.map Set.ofList
+
+let Intersections wires = 
+  wires
+  |> Seq.map (fun c -> c |> Seq.map (fun x -> x.Coordinate) |> Seq.toList) 
+  |> Seq.map Set.ofList 
   |> Set.intersectMany
-  |> Set.map ManhattanDistance
+  |> Set.filter (fun c -> c <> {X=0; Y=0} )
   |> Set.toSeq
-  |> Seq.filter (fun x -> x <> 0) //removes the starting point which is also considered as a intersection point
-  |> Seq.min
+
+let ManhattanDistance intersections =
+  intersections
+  |> Seq.map (fun c -> abs c.X + abs c.Y)
   
+let SolveDay3Part1 = 
+  Wires
+  |> Intersections
+  |> ManhattanDistance
+  |> Seq.min
+
+let filterIntersects (wire:List<WireCoordinate>, wire2:List<WireCoordinate>, intersects:seq<Coordinate>) = 
+  intersects
+  |> Seq.map (fun i -> 
+  {
+      Coordinate = i;
+      Delay = (wire |> Seq.find (fun w -> w.Coordinate = i)).Delay + (wire2 |> Seq.find (fun w -> w.Coordinate = i)).Delay
+  })
+
+let Delay w = w.Delay
+
+let SolveDay3Part2 = 
+  filterIntersects (Wires |> Seq.item 0, Wires |> Seq.item 1, Wires |> Intersections) 
+  |> Seq.minBy (fun x -> x.Delay)
+  |> Delay
