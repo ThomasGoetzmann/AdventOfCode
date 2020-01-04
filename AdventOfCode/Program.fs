@@ -24,6 +24,7 @@ let main argv =
     printfn "Day 4 part 2 solution is %i" SolveDay4Part2
     printfn "---"
     printfn "Day 5 part 1 solution is %i" SolveDay5Part1
+    printfn "Day 5 part 2 solution is %i" SolveDay5Part2
 
     0 // return an integer exit code
 
