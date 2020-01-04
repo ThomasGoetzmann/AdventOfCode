@@ -13,15 +13,23 @@ let toOrbits lines =
 
 let pathToObject orbits object=
   let orbits = (orbits |> Map.ofSeq)
-  let rec pathTo object counter =
+  let rec pathTo object =
     match Map.tryFind object orbits with
-    | Some obj -> pathTo obj (counter + 1)
-    | None -> counter
+    | Some obj -> obj :: pathTo obj
+    | None -> []
 
-  pathTo object 0 
+  pathTo object
 
 let SolveDay6Part1 = 
   let orbits = inputs |> toOrbits
-  orbits |> Seq.sumBy (fst >> pathToObject orbits)
+  orbits |> Seq.sumBy (fst >> pathToObject orbits >> List.length)
 
-let SolveDay6Part2 = 0
+let SolveDay6Part2 = 
+  let orbits = inputs |> toOrbits
+
+  let pathToYOU = pathToObject orbits "YOU" |> List.rev
+  let pathToSAN = pathToObject orbits "SAN" |> List.rev
+
+  let distToCommonParent = Seq.zip pathToYOU pathToSAN |> Seq.findIndex (fun (obj1, obj2) -> obj1 <> obj2)
+
+  pathToYOU.Length + pathToSAN.Length - (2 * distToCommonParent)
