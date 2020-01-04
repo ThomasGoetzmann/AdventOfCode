@@ -1,16 +1,12 @@
-﻿// Learn more about F# at http://fsharp.org
-
-open Year2019Day1
+﻿open Year2019Day1
 open Year2019Day2
 open Year2019Day3
 open Year2019Day4
 open Year2019Day5
+open Year2019Day6
 
 [<EntryPoint>]
 let main argv =
-    //let mass = [10; 10]
-    //let fuel = TotalFuel mass
-    //printfn "Santa needs %i fuel for launching modules %A kg." fuel mass
     printfn "Day 1 part 1 solution is %i" SolveDay1Part1
     printfn "Day 1 part 2 solution is %i" SolveDay1Part2
     printfn "---"
@@ -25,7 +21,8 @@ let main argv =
     printfn "---"
     printfn "Day 5 part 1 solution is %i" SolveDay5Part1
     printfn "Day 5 part 2 solution is %i" SolveDay5Part2
+    printfn "---"
+    printfn "Day 6 part 1 solution is %A" SolveDay6Part1
+    printfn "Day 6 part 2 solution is %i" SolveDay6Part2
 
     0 // return an integer exit code
-
-    
