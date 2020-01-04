@@ -48,10 +48,13 @@ let drawWireSegment (positions:List<Position>, move:Move) =
   addMove (positions, positions.Head, move)
 
 let drawWire (moves:seq<Move>) = 
-  let mutable positions = [ {Coordinate={X=0; Y=0}; Delay= int64 0} ]
-  for move in moves do
-    positions <- drawWireSegment(positions,move)
-  positions
+  let rec loop moves positions = 
+    match moves with 
+    | x::xs -> loop xs (drawWireSegment positions x)
+    | [] -> positions
+  
+  let startPosition = {Coordinate = {X=0; Y=0}; Delay = 0L}
+  loop (moves|> Seq.toList) [startPosition]
 
 let Wires = 
   inputs 
