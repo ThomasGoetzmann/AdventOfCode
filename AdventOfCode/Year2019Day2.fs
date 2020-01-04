@@ -6,7 +6,7 @@ open IntCodeComputer
 let inputs = File.ReadAllText "../../../inputs/input-year2019day2.txt"
 let testInputs = "1,0,0,3,99"
 
-let Solve (verb:int) (noun:int) = inputs |> parseIntCode |> InitMemory verb noun |> RunIntCode |> Seq.head
+let Solve (verb:int) (noun:int) = inputs |> parseIntCode |> InitMemory verb noun |> RunIntCode 1 |> Seq.head
 
 let SolveDay2Part1 = Solve 12 2
 let SolveDay2Part2 = seq {
