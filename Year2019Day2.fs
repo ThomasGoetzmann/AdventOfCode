@@ -3,7 +3,7 @@
 open System.IO
 open IntCodeComputer
 
-let inputs = File.ReadAllText "../../../inputs/input-year2019day2.txt"
+let inputs = File.ReadAllText "inputs/input-year2019day2.txt"
 let testInputs = "1,0,0,3,99"
 
 let Solve (verb:int) (noun:int) = inputs |> parseIntCode |> InitMemory verb noun |> RunIntCode 1 |> Seq.head

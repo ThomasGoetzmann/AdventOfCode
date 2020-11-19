@@ -3,7 +3,7 @@
 open FSharp.Collections
 open System.IO
 
-let inputs = File.ReadLines "../../../inputs/input-year2019day1.txt" |> Seq.map int
+let inputs = File.ReadLines "inputs/input-year2019day1.txt" |> Seq.map int
 
 let fuel (mass:int) = mass / 3 - 2
 

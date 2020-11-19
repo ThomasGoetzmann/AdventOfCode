@@ -2,7 +2,7 @@
 
 open System.IO
 
-let inputs = File.ReadAllLines "../../../inputs/input-year2019day6.txt"
+let inputs = File.ReadAllLines "inputs/input-year2019day6.txt"
 
 let toOrbit (line:string) =
   let object = line.Split(')')

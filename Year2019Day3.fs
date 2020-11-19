@@ -2,7 +2,7 @@
 
 open System.IO
 
-let inputs = File.ReadAllLines "../../../inputs/input-year2019day3.txt"
+let inputs = File.ReadAllLines "inputs/input-year2019day3.txt"
 let testInputs = ["R8,U5,L5,D3"]
 
 type Direction = L | U | R | D
