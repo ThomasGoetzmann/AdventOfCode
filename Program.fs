@@ -4,6 +4,7 @@ open Year2019Day3
 open Year2019Day4
 open Year2019Day5
 open Year2019Day6
+open Year2019Day8
 
 [<EntryPoint>]
 let main argv =
@@ -24,4 +25,7 @@ let main argv =
     printfn "---"
     printfn "Day 6 part 1 solution is %A" SolveDay6Part1
     printfn "Day 6 part 2 solution is %i" SolveDay6Part2
+    printfn "---"
+    printfn "Day 8 part 1 solution is %A" SolveDay8Part1
+    printfn "Day 8 part 2 solution is %s" SolveDay8Part2
     0 // return an integer exit code
