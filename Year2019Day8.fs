@@ -2,10 +2,8 @@ module Year2019Day8
 
 open System.IO
 
-//Unpure
 let inputs = File.ReadAllText "inputs/input-year2019day8.txt"
 
-//Pure
 let Width = 25
 let Height = 6
 let LayerSize = Width * Height
@@ -32,16 +30,16 @@ let toPixel c =
 
 let toPixelLayers str = str |> List.ofSeq |> List.map toPixel |> List.chunkBySize LayerSize
 
-let renderPixels x y =
-    match x with
-    | Transparent ->  y
-    | _ -> x
+let renderPixels topPixel bottomPixel =
+    match topPixel with
+    | Transparent ->  bottomPixel
+    | _ -> topPixel
 
 let rendering layers = 
-    let folder x y = 
-        match x with
-        | [] -> y
-        | _ -> List.map2 renderPixels x y
+    let folder topLayer bottomLayer = 
+        match topLayer with
+        | [] -> bottomLayer
+        | _ -> List.map2 renderPixels topLayer bottomLayer
 
     List.fold folder [] layers
 
