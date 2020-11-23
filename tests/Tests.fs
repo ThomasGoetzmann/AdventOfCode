@@ -67,10 +67,11 @@ let ``Day 8 Part 1: number of 1 digits * number of 2 digits where fewest 0 digit
 
 [<Fact>]
 let ``Day 8 Part 2: ASCII image "RCYKR" (line endings are \r\n)`` () =
-    SolveDay8Part2 |> should equal "
-██████      ████    ██      ████    ██  ██████    
-██    ██  ██    ██  ██      ████  ██    ██    ██  
-██    ██  ██          ██  ██  ████      ██    ██  
-██████    ██            ██    ██  ██    ██████    
-██  ██    ██    ██      ██    ██  ██    ██  ██    
-██    ██    ████        ██    ██    ██  ██    ██  "
+    SolveDay8Part2 |> should equal $"{Environment.NewLine}██████      ████    ██      ████    ██  ██████    {Environment.NewLine}██    ██  ██    ██  ██      ████  ██    ██    ██  {Environment.NewLine}██    ██  ██          ██  ██  ████      ██    ██  {Environment.NewLine}██████    ██            ██    ██  ██    ██████    {Environment.NewLine}██  ██    ██    ██      ██    ██  ██    ██  ██    {Environment.NewLine}██    ██    ████        ██    ██    ██  ██    ██  "
+    //Looks like this:
+    // ██████      ████    ██      ████    ██  ██████
+    // ██    ██  ██    ██  ██      ████  ██    ██    ██
+    // ██    ██  ██          ██  ██  ████      ██    ██
+    // ██████    ██            ██    ██  ██    ██████
+    // ██  ██    ██    ██      ██    ██  ██    ██  ██
+    // ██    ██    ████        ██    ██    ██  ██    ██ 

@@ -1,5 +1,6 @@
 module Year2019Day8
 
+open System
 open System.IO
 
 let private inputs = File.ReadAllText "inputs/input-year2019day8.txt"
@@ -52,11 +53,11 @@ let private toConsoleImage render=
         | _ -> "  "     // Black or transparent is background color, so '  '
 
     let toSingleStringWithNewlines strings =
-        let lineSize = width * 2 + 1 
+        let lineSize = width * 2 + Environment.NewLine.Length - 1
         let folder (a: string) (b: string) = 
             match a.Length with
-            | n when n = lineSize -> a + "\r\n" + b  // Or in F#5 with string interpolation: $"{a}\n{b}", but this isn't much more readable
-            | n when n % (lineSize + 1) = 0 -> a + "\r\n"+ b // (lineSize + 1) because of the newline character
+            | n when n = lineSize -> a + Environment.NewLine + b  // Or in F#5 with string interpolation: $"{a}\n{b}", but this isn't much more readable
+            | n when n % (lineSize + 1) = 0 -> a + Environment.NewLine + b // (lineSize + 1) because of the newline character
             | _ -> a + b
         strings |> List.fold folder ""  
 
