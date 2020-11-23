@@ -6,9 +6,9 @@ let inputs = File.ReadAllLines "inputs/input-year2019day3.txt"
 let testInputs = ["R8,U5,L5,D3"]
 
 type Direction = L | U | R | D
-type Move = { Length:int; Direction:Direction}
-type Coordinate = {X:int; Y:int}
-type Position = {Coordinate:Coordinate; Delay:int64}
+type Move = { Length: int; Direction: Direction}
+type Coordinate = {X: int; Y: int}
+type Position = {Coordinate: Coordinate; Delay: int64}
 
 let parseDir = 
   function
@@ -18,16 +18,16 @@ let parseDir =
   | 'D' -> D
   | invalidDirectionChar -> failwithf "Invalid direction: %c" invalidDirectionChar
 
-let parseMove (input:string) = 
+let parseMove (input: string) = 
   { 
     Length = int input.[1..];
     Direction = parseDir input.[0]
   }
 
-let parse (text:string) = text.Split(",") |> Seq.map parseMove
+let parse (text: string) = text.Split(",") |> Seq.map parseMove
 
-let drawWireSegment (positions:List<Position>) (move:Move) = 
-  let rec addMove (p:Position) (ps:List<Position>) (move:Move) =
+let drawWireSegment (positions: Position list) (move:Move) = 
+  let rec addMove (p: Position) (ps: Position list) (move:Move) =
     let positions = p::ps
     match move with
     | m when m.Length <= 0 -> positions
@@ -42,7 +42,7 @@ let drawWireSegment (positions:List<Position>) (move:Move) =
 
   addMove positions.Head positions.Tail move
 
-let drawWire (moves:seq<Move>) = 
+let drawWire (moves: Move seq) = 
   let rec loop moves positions = 
     match moves with 
     | x::xs -> loop xs (drawWireSegment positions x)
@@ -52,9 +52,8 @@ let drawWire (moves:seq<Move>) =
   loop (moves|> Seq.toList) [startPosition]
 
 let Wires = 
-  inputs 
-  |> Seq.map parse 
-  |> Seq.map drawWire
+  inputs
+  |> Seq.map (parse >> drawWire) 
 
 let Intersections wires = 
   wires
@@ -74,7 +73,7 @@ let SolveDay3Part1 =
   |> ManhattanDistance
   |> Seq.min
 
-let filterIntersects (wire:List<Position>) (wire2:List<Position>) (intersects:seq<Coordinate>) = 
+let filterIntersects (wire: Position list) (wire2: Position list) (intersects: Coordinate seq) = 
   intersects
   |> Seq.map (fun i -> 
   {

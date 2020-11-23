@@ -1,21 +1,21 @@
 ﻿module Year2019Day4
 
-let toStringList (value:int) = value.ToString() |> Seq.toList
+let toStringList (value: int) = value.ToString() |> Seq.toList
 
-let hasDouble (value:int) = 
+let hasDouble (value: int) = 
   value.ToString() 
   |> Seq.countBy id
-  |> Seq.exists (fun (_,count) -> count >= 2) 
+  |> Seq.exists (fun (_, count) -> count >= 2) 
 
-let hasPureDouble (value:int) = 
+let hasPureDouble (value: int) = 
   value.ToString() 
   |> Seq.countBy id
-  |> Seq.exists (fun (_,count) -> count = 2) 
+  |> Seq.exists (fun (_, count) -> count = 2) 
 
-let nextAlwaysHigher (value:int) = 
+let nextAlwaysHigher (value: int) = 
   value.ToString()
   |> Seq.pairwise
-  |> Seq.exists (fun (a,b) -> a > b) 
+  |> Seq.exists (fun (a, b) -> a > b) 
   |> not
 
 let SolveDay4Part1 = 
