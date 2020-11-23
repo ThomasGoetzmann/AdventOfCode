@@ -19,9 +19,9 @@ jobs:
         dotnet-version: 5.0.100
     - name: Install dependencies (./src)
       run: dotnet restore ./src
-    - name: Install dependencies (./test)
-      run: dotnet restore ./test
+    - name: Install dependencies (./tests)
+      run: dotnet restore ./tests
     - name: Build (./src)
       run: dotnet build ./src --configuration Release --no-restore
-    - name: Test (./test)
-      run: dotnet test ./test --no-restore --verbosity normal
+    - name: Test (./tests)
+      run: dotnet test ./tests --no-restore --verbosity normal
